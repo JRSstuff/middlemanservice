@@ -1,8 +1,8 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary, type FallbackProps } from 'react-error-boundary';
-import { queryClient, queryPersister } from '@/lib/query-client';
+import { queryClient } from '@/lib/query-client';
 import { AppShell } from '@/components/layout/AppShell';
 import { SafeSwapToaster, ErrorState, Skeleton } from '@/components/ui';
 
@@ -53,10 +53,7 @@ function GlobalErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 export function App() {
   return (
     <ErrorBoundary FallbackComponent={GlobalErrorFallback} onError={logErrorToSentry}>
-      <PersistQueryClientProvider
-        client={queryClient}
-        persistOptions={{ persister: queryPersister }}
-      >
+      <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Suspense fallback={<PageLoader />}>
             <Routes>
@@ -80,7 +77,7 @@ export function App() {
           </Suspense>
           <SafeSwapToaster />
         </BrowserRouter>
-      </PersistQueryClientProvider>
+      </QueryClientProvider>
     </ErrorBoundary>
   );
 }

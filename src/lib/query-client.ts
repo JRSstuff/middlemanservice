@@ -1,5 +1,6 @@
 import { QueryClient } from '@tanstack/react-query';
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
+import { persistQueryClient } from '@tanstack/react-query-persist-client';
 
 /**
  * 24-hour cache persistence for offline read support
@@ -27,3 +28,12 @@ export const queryPersister = createSyncStoragePersister({
   storage: typeof window !== 'undefined' ? window.localStorage : undefined,
   key: 'SAFESWAP_QUERY_OFFLINE_CACHE',
 });
+
+// Initialize persistence cleanly in browser runtime
+if (typeof window !== 'undefined') {
+  persistQueryClient({
+    queryClient,
+    persister: queryPersister,
+    maxAge: 1000 * 60 * 60 * 24, // 24 hours
+  });
+}
