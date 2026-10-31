@@ -430,3 +430,5 @@ export const ComponentGallery: React.FC = () => {
     </TooltipProvider>
   );
 };
+
+export default ComponentGallery;

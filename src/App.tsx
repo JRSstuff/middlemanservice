@@ -16,9 +16,7 @@ const Notifications = lazy(() => import('@/pages/Notifications'));
 const Profile = lazy(() => import('@/pages/Profile'));
 const SignIn = lazy(() => import('@/pages/SignIn'));
 const StaffConsole = lazy(() => import('@/pages/StaffConsole'));
-const ComponentGallery = lazy(() =>
-  import('@/pages/ComponentGallery').then((m) => ({ default: m.ComponentGallery }))
-);
+const ComponentGallery = lazy(() => import('@/pages/ComponentGallery'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 
 import { logErrorToSentry } from '@/config/sentry';
@@ -33,18 +31,29 @@ function PageLoader() {
 }
 
 function GlobalErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
+  React.useEffect(() => {
+    console.error('SafeSwap Uncaught App Error:', error);
+  }, [error]);
+
   const errorMessage =
     error instanceof Error ? error.message : typeof error === 'string' ? error : 'Something went wrong';
+  const errorStack = error instanceof Error ? error.stack : undefined;
 
   return (
     <div className="min-h-screen bg-cream flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-lg space-y-4">
         <ErrorState
           title="Application Encountered an Error"
           description={errorMessage || 'Please try refreshing or returning home.'}
           onRetry={resetErrorBoundary}
           onGoHome={() => (window.location.href = '/')}
         />
+        {import.meta.env.DEV && errorStack && (
+          <details className="p-3 bg-red-50 border border-red-200 text-red-950 text-xs rounded font-mono overflow-auto max-h-60">
+            <summary className="cursor-pointer font-bold mb-2">Error Details (Development Only)</summary>
+            <pre className="whitespace-pre-wrap">{errorStack}</pre>
+          </details>
+        )}
       </div>
     </div>
   );
