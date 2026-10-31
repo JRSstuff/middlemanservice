@@ -34,7 +34,7 @@ export const ComponentGallery: React.FC = () => {
   const [currency, setCurrency] = useState('php');
   const [dialogOpen, setDialogOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [activeBanner, setActiveBanner] = useState<string | null>('offline');
+  const [activeBanner, setActiveBanner] = useState<string | null>(null);
   const [btnLoading, setBtnLoading] = useState(false);
 
   return (
@@ -57,7 +57,7 @@ export const ComponentGallery: React.FC = () => {
 
         {/* Status Banners Demo */}
         <section className="space-y-4">
-          <h2 className="text-lg font-semibold border-b border-border pb-2">Status Banners</h2>
+          <h2 className="text-lg font-semibold border-b border-border pb-2">Status Banners (Interactive Showcase)</h2>
           <div className="flex flex-wrap gap-2">
             <Button size="sm" variant="secondary" onClick={() => setActiveBanner('offline')}>
               Show Offline Banner
@@ -75,7 +75,7 @@ export const ComponentGallery: React.FC = () => {
           {activeBanner === 'offline' && (
             <StatusBanner
               variant="offline"
-              message="You are offline. Safe actions will sync when back online."
+              message="[Demo Component Preview] You are offline. Safe actions will sync when back online."
               onDismiss={() => setActiveBanner(null)}
             />
           )}
