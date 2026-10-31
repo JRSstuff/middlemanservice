@@ -26,7 +26,9 @@ import {
   Truck,
   ArrowSquareOut,
   XCircle,
+  Sparkle,
 } from '@phosphor-icons/react';
+import { analyzeDealRisk } from '@/lib/ai-assistant';
 
 export const DealDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -38,6 +40,11 @@ export const DealDetail: React.FC = () => {
 
   const [deliveryDrawerOpen, setDeliveryDrawerOpen] = useState(false);
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+
+  // AI-Assisted Deal Risk & Safety Screening
+  const riskAssessment = React.useMemo(() => {
+    return deal ? analyzeDealRisk(deal) : null;
+  }, [deal]);
 
   if (isLoading) {
     return (
@@ -208,6 +215,57 @@ export const DealDetail: React.FC = () => {
               </div>
             </Card.Body>
           </Card>
+
+          {/* AI Escrow Safety & Scam Screener */}
+          {riskAssessment && (
+            <Card padding="md" className="space-y-3 bg-white border border-border">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="p-1.5 bg-lime rounded text-ink">
+                    <Sparkle size={18} weight="fill" />
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-sm text-ink flex items-center gap-1.5">
+                      AI Escrow Risk & Safety Screener
+                    </h3>
+                    <p className="text-xs text-ink-muted">Automated scam pattern and inspection clause audit</p>
+                  </div>
+                </div>
+                <Badge
+                  variant={
+                    riskAssessment.riskLevel === 'LOW'
+                      ? 'success'
+                      : riskAssessment.riskLevel === 'MODERATE'
+                      ? 'warning'
+                      : 'danger'
+                  }
+                  size="sm"
+                >
+                  {riskAssessment.riskLevel} RISK • {riskAssessment.trustScore}% TRUST
+                </Badge>
+              </div>
+
+              <div className="text-xs space-y-1.5 pt-2 border-t border-border">
+                {riskAssessment.positiveSignals.map((signal, idx) => (
+                  <p key={idx} className="flex items-center gap-2 text-ink">
+                    <CheckCircle size={14} className="text-green shrink-0" weight="fill" />
+                    <span>{signal}</span>
+                  </p>
+                ))}
+                {riskAssessment.riskFactors.map((factor, idx) => (
+                  <p key={idx} className="flex items-center gap-2 text-ink-muted">
+                    <WarningCircle size={14} className="text-yellow-600 shrink-0" weight="fill" />
+                    <span>{factor}</span>
+                  </p>
+                ))}
+                {riskAssessment.recommendations.map((rec, idx) => (
+                  <p key={idx} className="text-[11px] text-ink-muted italic pl-5">
+                    💡 Tip: {rec}
+                  </p>
+                ))}
+              </div>
+            </Card>
+          )}
 
           {/* Delivery Proof Card (if delivered) */}
           {(deal.status === 'DELIVERED' || deal.status === 'CONFIRMED') && (
