@@ -133,6 +133,62 @@ SafeSwap provides a secure and reliable escrow service for peer-to-peer student 
 
 ---
 
+## 📱 Product Tour & Interface Showcase
+
+SafeSwap is built with a mobile-first, flat, accessible design system tailored for Philippine peer-to-peer commerce. Below are live captures of the platform across desktop and mobile devices.
+
+### 1. Escrow Dashboard
+The central dashboard where users monitor active and completed escrow transactions. Displays live state badges (`HELD`, `DELIVERED`, `DISPUTED`), counterparty identities, SLA countdowns, and quick access to funding and dispute management.
+
+| Desktop View | Mobile View |
+| :---: | :---: |
+| ![Desktop Dashboard](docs/screenshots/desktop-dashboard.png) | <img src="docs/screenshots/mobile-dashboard.png" width="300" alt="Mobile Dashboard" /> |
+
+---
+
+### 2. Manual QR Ph Payment & Funding
+When a deal is created, the buyer receives a high-contrast national standard QR Ph code with the exact centavo amount and a unique deal reference code (`SS-XXXXXXXX`). Funds are transferred directly to SafeSwap's regulated escrow account and evidence is uploaded for human verification.
+
+| Desktop View | Mobile View |
+| :---: | :---: |
+| ![Desktop QR Ph Payment](docs/screenshots/desktop-payment-qrph.png) | <img src="docs/screenshots/mobile-payment-qrph.png" width="300" alt="Mobile QR Ph Payment" /> |
+
+---
+
+### 3. Deal Detail & Protected Escrow Timeline
+Provides an immutable audit timeline of each milestone: **Deal Created** → **Payment Verified & Funds Protected** → **Seller Delivery Proof** → **Buyer Receipt Confirmation** → **Payout Released**. Neither party can tamper with status or funds.
+
+| Desktop View | Mobile View |
+| :---: | :---: |
+| ![Desktop Deal Detail](docs/screenshots/desktop-deal-detail.png) | <img src="docs/screenshots/mobile-deal-detail.png" width="300" alt="Mobile Deal Detail" /> |
+
+---
+
+### 4. Staff Verification Console (`/staff`)
+Dedicated operational interface for SafeSwap escrow officers. Allows staff to match incoming bank receipts against statements, enforce duplicate-reference fraud checks, and disburse seller payouts via InstaPay under strict **Four-Eyes** segregation.
+
+| Desktop View | Mobile View |
+| :---: | :---: |
+| ![Desktop Staff Console](docs/screenshots/desktop-staff-console.png) | <img src="docs/screenshots/mobile-staff-console.png" width="300" alt="Mobile Staff Console" /> |
+
+---
+
+### 5. 1-Click Simulation Personas & Prototype Auth (`/auth`)
+Instant role switching for prototype testing and evaluation. Allows evaluators and developers to toggle between **Buyer Alex**, **Seller Maria**, and **Staff Specialist** with a single click, completely eliminating email confirmation roadblocks.
+
+| Desktop View | Mobile View |
+| :---: | :---: |
+| ![Desktop Auth Personas](docs/screenshots/desktop-auth-personas.png) | <img src="docs/screenshots/mobile-auth-personas.png" width="300" alt="Mobile Auth Personas" /> |
+
+---
+
+### 6. Design System & WCAG Contrast Gallery (`/gallery`)
+Showcase of SafeSwap's flat design system, tokens, and comprehensive WCAG 2.1 AA color contrast compliance table (all text pairs meet $\ge$ 4.5:1 ratio).
+
+![Component Gallery](docs/screenshots/desktop-component-gallery.png)
+
+---
+
 ## 1. Core Architecture & Payment Flow
 
 ```mermaid
