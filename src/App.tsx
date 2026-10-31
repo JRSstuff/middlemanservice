@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary, type FallbackProps } from 'react-error-boundary';
@@ -6,18 +6,18 @@ import { queryClient } from '@/lib/query-client';
 import { AppShell } from '@/components/layout/AppShell';
 import { SafeSwapToaster, ErrorState, Skeleton } from '@/components/ui';
 
-// Route-level code splitting
-const Dashboard = lazy(() => import('@/pages/Dashboard'));
-const NewDeal = lazy(() => import('@/pages/NewDeal'));
-const DealDetail = lazy(() => import('@/pages/DealDetail'));
-const Payment = lazy(() => import('@/pages/Payment'));
-const Dispute = lazy(() => import('@/pages/Dispute'));
-const Notifications = lazy(() => import('@/pages/Notifications'));
-const Profile = lazy(() => import('@/pages/Profile'));
-const SignIn = lazy(() => import('@/pages/SignIn'));
-const StaffConsole = lazy(() => import('@/pages/StaffConsole'));
-const ComponentGallery = lazy(() => import('@/pages/ComponentGallery'));
-const NotFound = lazy(() => import('@/pages/NotFound'));
+// Page components
+import Dashboard from '@/pages/Dashboard';
+import NewDeal from '@/pages/NewDeal';
+import DealDetail from '@/pages/DealDetail';
+import Payment from '@/pages/Payment';
+import Dispute from '@/pages/Dispute';
+import Notifications from '@/pages/Notifications';
+import Profile from '@/pages/Profile';
+import SignIn from '@/pages/SignIn';
+import StaffConsole from '@/pages/StaffConsole';
+import ComponentGallery from '@/pages/ComponentGallery';
+import NotFound from '@/pages/NotFound';
 
 import { logErrorToSentry } from '@/config/sentry';
 
